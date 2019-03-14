@@ -241,4 +241,39 @@ int main(int argc, char const *argv[])
     return 0;
 }
 ```
-    
+
+## 에라토스테네스의 체
+```C
+void eratostenes(int n)
+{
+	if (n <= 1) return;    // 0과 1은 제외
+
+	int primeArr[10001];    // 10000이하의 수를 담는 배열 생성
+
+	for (int i = 2; i <= n; i++)    // 2부터 n까지의 수를
+	{
+		primeArr[i] = i;    // 배열에 대입
+	}
+
+	for (int i = 2; i * i <= n; i++)    // 2부터 n까지
+	{
+		if (primeArr[i] == 0)    // 소수가 아니라면
+		{
+			continue;    // 무시한다
+		}
+		else    // 소수라면
+		{
+			for (int j = i + i; j <= n; j += i)    // (예: i = 2) 2 이후의 배수는 약수로 2를 
+												  // 가지게되므로 4, 6, 8...등은 소수가 아니다
+			{
+				primeArr[j] = 0;    // 소수가 아닌 2 이후의 배수들은 지워준다.
+			}
+		}
+	}
+
+	for (int i = 2; i <= n; i++)    // 2부터 n까지
+	{
+		if (primeArr[i]) cout << primeArr[i] << endl;    // 소수의 값만 출력한다.
+	}
+}
+```
